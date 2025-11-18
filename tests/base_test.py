@@ -1,12 +1,10 @@
 import unittest
 
-from david8 import get_qb
-
-from david8_postgresql import PostgresqlDialect
+from david8_postgresql import get_qb
 
 
 class BaseTest(unittest.TestCase):
     maxDiff = 1500
 
-    qb = get_qb(PostgresqlDialect())                      # without quotes
-    qb_w = get_qb(PostgresqlDialect(is_quote_mode=True))  # with quotes
+    qb = get_qb()                      # without quotes
+    qb_w = get_qb(is_quote_mode=True)  # with quotes

@@ -1,10 +1,13 @@
-from david8.core.base_dialect import BaseDialect
-from david8.param_styles import PyFormatParamStyle
+from david8.core.base_dialect import BaseDialect as _BaseDialect
+from david8.core.base_query_builder import BaseQueryBuilder as _BaseQueryBuilder
+from david8.param_styles import PyFormatParamStyle, NumericParamStyle
 from david8.protocols.dialect import ParamStyleProtocol
+from david8.protocols.query_builder import QueryBuilderProtocol
 
 
-class PostgresqlDialect(BaseDialect):
-    def __init__(self, param_style: ParamStyleProtocol = None, is_quote_mode: bool = False):
-        super().__init__(param_style, is_quote_mode)
-        self._is_quote_mode = is_quote_mode
-        self._param_style = param_style or PyFormatParamStyle()
+def get_qb(
+    param_style: ParamStyleProtocol | NumericParamStyle = None,
+    is_quote_mode: bool = False,
+) -> QueryBuilderProtocol:
+    dialect = _BaseDialect(param_style or PyFormatParamStyle(), is_quote_mode)
+    return _BaseQueryBuilder(dialect)

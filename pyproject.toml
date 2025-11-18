@@ -4,16 +4,15 @@ version = "0.dev.0"
 description = "david8 PostgreSQL dialect"
 authors = [{name = "Danila Ganchar", email = "danila.ganchar@gmail.com"}]
 maintainers = [{name = "Danila Ganchar", email = "danila.ganchar@gmail.com"}]
-license = {file = "LICENSE"}
+license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.11, < 3.14"
 dependencies = [
-    "david8>=0.dev.3"
+    "david8>=0.dev.4"
 ]
 
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
-    "License :: OSI Approved :: Apache Software License",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Libraries",
     "Topic :: Database",
