@@ -1,6 +1,6 @@
 from david8.core.base_dialect import BaseDialect as _BaseDialect
 from david8.core.base_query_builder import BaseQueryBuilder as _BaseQueryBuilder
-from david8.param_styles import PyFormatParamStyle, NumericParamStyle
+from david8.param_styles import NumericParamStyle, PyFormatParamStyle
 from david8.protocols.dialect import ParamStyleProtocol
 from david8.protocols.query_builder import QueryBuilderProtocol
 
