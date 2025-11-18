@@ -35,8 +35,9 @@ jobs:
              sed -i -e "s/0.dev.0/$GITHUB_REF_NAME/g" pyproject.toml
           fi
           uv build
-          mkdir david8_build
+          mkdir david8_postgresql_build
           mv ./dist ./david8_postgresql_build
+
       - name: Upload david8_postgresql package
         uses: actions/upload-artifact@v4
         with:
