@@ -91,14 +91,14 @@ jobs:
           parallel: true
           flag-name: py-${{ matrix.python-version }}
 
-    coveralls_finish:
-      needs: [ tests ]
-      runs-on: ubuntu-22.04
-      steps:
-        - name: Finish Coveralls
-          uses: coverallsapp/github-action@v2
-          with:
-            parallel-finished: true
+  coveralls_finish:
+    needs: [ tests ]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Finish Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel-finished: true
 
 
   publish_to_PyPi:
