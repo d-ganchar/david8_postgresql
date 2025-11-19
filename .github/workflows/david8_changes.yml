@@ -1,0 +1,53 @@
+name: david8 changes
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_url:
+        description: 'david8 artefact'
+        required: true
+        type: string
+      auth_token:
+        description: 'Auth token for artifact download'
+        required: true
+        type: string
+
+jobs:
+  download-and-use:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.11", "3.12", "3.13" ]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            pyproject.toml
+            uv.lock
+            tests
+
+      - name: Build david8_postgresql_build
+        run: |
+          uv build
+          mkdir david8_postgresql_build
+          mv ./dist ./david8_postgresql_build
+
+      - name: Download david8 dist
+        run: |
+          curl -L \
+          -H "Authorization: token ${{ github.event.inputs.auth_token }}" \
+          -H "Accept: application/vnd.github+json" \
+          "${{ github.event.inputs.artifact_url }}" \
+          | tar -xzf -
+
+      - name: Install dependencies
+        run: | 
+          uv sync --dev
+          uv pip install dist/$(ls ./david8_postgresql_build/ | grep ".tar.gz")
+          uv pip install dist/$(ls ./dist/ | grep ".tar.gz")
+          uv pip freeze | grep david8
+
+      - name: Test with python ${{ matrix.python-version }}
+        run: pytest tests
