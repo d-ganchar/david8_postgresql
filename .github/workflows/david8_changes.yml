@@ -5,6 +5,11 @@ on:
       artifact_url:
         description: 'david8 artefact'
         required: true
+        type: string
+      auth_token:
+        description: 'Auth token for artifact download'
+        required: true
+        type: string
 
 jobs:
   download-and-use:
@@ -30,7 +35,12 @@ jobs:
           mv ./dist ./david8_postgresql_build
 
       - name: Download david8 dist
-        run: curl -L "${{ github.event.inputs.artifact_url }}" | tar -xzf -
+        run: |
+          curl -L \
+          -H "Authorization: token ${{ github.event.inputs.auth_token }}" \
+          -H "Accept: application/vnd.github+json" \
+          "${{ github.event.inputs.artifact_url }}" \
+          | tar -xzf -
 
       - name: Install dependencies
         run: | 
