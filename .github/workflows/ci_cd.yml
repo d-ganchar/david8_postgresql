@@ -43,7 +43,6 @@ jobs:
         with:
           name: dist
           path: david8_postgresql_build
-          retention-days: 90
 
   tests:
     runs-on: ubuntu-22.04
@@ -62,6 +61,7 @@ jobs:
             pyproject.toml
             uv.lock
             tests
+            LICENSE
 
       - uses: astral-sh/setup-uv@v5
         with:
@@ -76,11 +76,11 @@ jobs:
           name: dist
 
       - name: Install david8_postgresql from dist
-        run: uv pip install dist/$(ls ./dist/ | grep ".tar.gz")
+        run: uv pip install dist/*.tar.gz
 
       - name: Test with python ${{ matrix.python-version }}
         run: pytest tests
-  
+
 
   publish_to_PyPi:
     runs-on: ubuntu-22.04
