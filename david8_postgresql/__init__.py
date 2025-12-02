@@ -1,8 +1,9 @@
 from david8.core.base_dialect import BaseDialect as _BaseDialect
-from david8.core.base_query_builder import BaseQueryBuilder as _BaseQueryBuilder
 from david8.param_styles import NumericParamStyle, PyFormatParamStyle
 from david8.protocols.dialect import ParamStyleProtocol
-from david8.protocols.query_builder import QueryBuilderProtocol
+
+from .core.query_builder import QueryBuilder as _QueryBuilder
+from .protocols.query_builder import QueryBuilderProtocol
 
 
 def get_qb(
@@ -10,4 +11,4 @@ def get_qb(
     is_quote_mode: bool = False,
 ) -> QueryBuilderProtocol:
     dialect = _BaseDialect(param_style or PyFormatParamStyle(), is_quote_mode)
-    return _BaseQueryBuilder(dialect)
+    return _QueryBuilder(dialect)
