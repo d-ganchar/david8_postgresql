@@ -1,12 +1,11 @@
 import dataclasses
 
-from david8.core.base_dml import BaseSelect, BaseUpdate, TargetTableConstruction, log_and_reset
+from david8.core.base_dml import BaseSelect, BaseUpdate, TargetTableConstruction
 from david8.protocols.dialect import DialectProtocol
 
 from ..protocols.dml import SelectProtocol, UpdateProtocol
 
 
-@dataclasses.dataclass(slots=True)
 class Select(BaseSelect, SelectProtocol):
     row_lock_mode: str = ''
 
@@ -58,24 +57,8 @@ class Select(BaseSelect, SelectProtocol):
         self.row_lock_mode = 'FOR NO KEY UPDATE SKIP LOCKED'
         return self
 
-    @log_and_reset
-    def get_sql(self, dialect: DialectProtocol = None) -> str:
-        """
-        TODO: move to _get_sql() on david8 side
-        """
-        dialect = dialect or self.dialect
-        with_query = self._with_queries_to_sql(dialect)
-        select = self._columns_to_sql(dialect)
-        from_ref = self._from_to_sql(dialect)
-        joins = self._joins_to_sql(dialect)
-        where = self.where_construction.get_sql(dialect)
-        group_by = self._group_by_to_sql(dialect)
-        having = self._having_to_sql(dialect)
-        union = self._union_to_sql(dialect)
-        order_by = self._order_by_to_sql()
-
-        limit = f' LIMIT {self.limit_value}' if self.limit_value else ''
-        sql =  f'{with_query}SELECT {select}{from_ref}{joins}{where}{group_by}{order_by}{having}{limit}{union}'
+    def _to_sql(self, dialect: DialectProtocol):
+        sql =  super()._to_sql(dialect)
         return f'{sql} {self.row_lock_mode}' if self.row_lock_mode else sql
 
 
