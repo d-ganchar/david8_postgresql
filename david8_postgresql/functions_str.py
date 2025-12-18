@@ -1,3 +1,3 @@
-from david8.core.fn_generator import SeparatedStrArgsCallableFactory as _SeparatedStrArgsCallableFactory
+from david8.core.fn_generator import SeparatedArgsFnFactory as _SeparatedArgsFnFactory
 
-concat = _SeparatedStrArgsCallableFactory(name='concat', separator=' || ')
+concat = _SeparatedArgsFnFactory(name='concat', separator=' || ')

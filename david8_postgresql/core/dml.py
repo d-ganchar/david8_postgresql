@@ -1,6 +1,6 @@
 import dataclasses
 
-from david8.core.base_dml import BaseSelect, BaseUpdate, TargetTableConstruction
+from david8.core.base_dml import BaseSelect, BaseUpdate, FullTableName
 from david8.protocols.dialect import DialectProtocol
 
 from ..protocols.dml import SelectProtocol, UpdateProtocol
@@ -65,7 +65,7 @@ class Select(BaseSelect, SelectProtocol):
 @dataclasses.dataclass(slots=True)
 class Update(BaseUpdate, UpdateProtocol):
     returning_columns: tuple[str, ...] = dataclasses.field(default_factory=tuple)
-    from_table_constr: TargetTableConstruction = dataclasses.field(default_factory=TargetTableConstruction)
+    from_table_constr: FullTableName = dataclasses.field(default_factory=FullTableName)
     from_table_alias: str = ''
 
     def _from_table_to_sql(self, dialect: DialectProtocol) -> str:
@@ -95,6 +95,6 @@ class Update(BaseUpdate, UpdateProtocol):
         return self
 
     def from_table(self, table_name: str, alias: str = '', db_name: str = '') -> 'UpdateProtocol':
-        self.from_table_constr.set_source(table_name, db_name)
+        self.from_table_constr.set_names(table_name, db_name)
         self.from_table_alias = alias
         return self

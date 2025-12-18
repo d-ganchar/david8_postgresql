@@ -2,7 +2,7 @@ from david8.core.base_dialect import BaseDialect as _BaseDialect
 from david8.param_styles import NumericParamStyle, PyFormatParamStyle
 from david8.protocols.dialect import ParamStyleProtocol
 
-from ._core.query_builder import QueryBuilder as _QueryBuilder
+from .core.query_builder import QueryBuilder as _QueryBuilder
 from .protocols.query_builder import QueryBuilderProtocol
 
 
