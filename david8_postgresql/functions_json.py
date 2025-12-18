@@ -1,4 +1,4 @@
-from david8_postgresql.core.functions_json_factory import (
+from .core.functions_json_factory import (
     DelKeyFactory,
     ExtractFieldFactory,
     HasKeyFactory,

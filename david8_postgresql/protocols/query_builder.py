@@ -1,7 +1,7 @@
 from david8.protocols.query_builder import QueryBuilderProtocol as _QueryBuilderProtocol
 from david8.protocols.sql import AliasedProtocol, ExprProtocol, FunctionProtocol
 
-from .dml import SelectProtocol, UpdateProtocol
+from .sql import SelectProtocol, UpdateProtocol
 
 
 class QueryBuilderProtocol(_QueryBuilderProtocol):

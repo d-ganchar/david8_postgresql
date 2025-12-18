@@ -1,9 +1,10 @@
 from david8.core.base_query_builder import BaseQueryBuilder as _BaseQueryBuilder
 from david8.protocols.sql import AliasedProtocol, ExprProtocol, FunctionProtocol
 
-from ..protocols.dml import SelectProtocol, UpdateProtocol
 from ..protocols.query_builder import QueryBuilderProtocol
-from .dml import Select, Update
+from ..protocols.sql import SelectProtocol, UpdateProtocol
+from .dml import Update
+from .dql import Select
 
 
 class QueryBuilder(_BaseQueryBuilder, QueryBuilderProtocol):

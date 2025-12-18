@@ -1,6 +1,6 @@
 from parameterized import parameterized
 
-from david8_postgresql.protocols.dml import SelectProtocol
+from david8_postgresql.protocols.sql import SelectProtocol
 from tests.base_test import BaseTest
 
 
