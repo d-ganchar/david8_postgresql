@@ -13,7 +13,7 @@ class Update(BaseUpdate, UpdateProtocol):
     from_table_alias: str = ''
 
     def _from_table_to_sql(self, dialect: DialectProtocol) -> str:
-        if not self.from_table_constr.from_table:
+        if not self.from_table_constr.table:
             return ''
 
         from_table = f' FROM {self.from_table_constr.get_sql(dialect)}'

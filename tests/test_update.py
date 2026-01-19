@@ -1,6 +1,6 @@
 from david8.expressions import col, val
 from david8.predicates import eq, eq_c
-from david8.protocols.dml import UpdateProtocol
+from david8.protocols.sql import UpdateProtocol
 from parameterized import parameterized
 
 from tests.base_test import BaseTest

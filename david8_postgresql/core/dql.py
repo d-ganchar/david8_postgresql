@@ -1,4 +1,4 @@
-from david8.core.base_dml import BaseSelect
+from david8.core.base_dql import BaseSelect
 from david8.protocols.dialect import DialectProtocol
 
 from ..protocols.sql import SelectProtocol
@@ -55,6 +55,6 @@ class Select(BaseSelect, SelectProtocol):
         self.row_lock_mode = 'FOR NO KEY UPDATE SKIP LOCKED'
         return self
 
-    def _to_sql(self, dialect: DialectProtocol):
-        sql =  super()._to_sql(dialect)
+    def _get_sql(self, dialect: DialectProtocol):
+        sql =  super()._get_sql(dialect)
         return f'{sql} {self.row_lock_mode}' if self.row_lock_mode else sql
