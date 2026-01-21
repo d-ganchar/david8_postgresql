@@ -1,7 +1,7 @@
 from david8.protocols.sql import FunctionProtocol
 from parameterized import parameterized
 
-from david8_postgresql.functions_array import array_remove, array_replace, unnest
+from david8_postgresql.functions_array import array_remove, array_replace, array_sample, array_to_string, unnest
 from david8_postgresql.functions_str import concat
 from tests.base_test import BaseTest
 
@@ -43,6 +43,16 @@ class TestFunctionsArray(BaseTest):
             array_replace('column1', -1, 0),
             "SELECT array_replace(column1, -1, 0)",
             'SELECT array_replace("column1", -1, 0)',
+        ),
+        (
+            array_to_string('column_name', ',', '*'),
+            "SELECT array_to_string(column_name, ',', '*')",
+            'SELECT array_to_string("column_name", \',\', \'*\')',
+        ),
+        (
+            array_sample('column_name', 3),
+            "SELECT array_sample(column_name, 3)",
+            'SELECT array_sample("column_name", 3)',
         ),
     ])
     def test_array_fn(self, fn: FunctionProtocol, exp_sql: str, exp_w_sql: str):

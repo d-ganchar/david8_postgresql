@@ -4,4 +4,6 @@ from .core.functions_array_factory import StrSeparatedArgsFactory as _StrSeparat
 
 unnest = _StrSeparatedArgsFactory(name='unnest')
 array_remove = _Col2AnyArgsFactory(name='array_remove')
+array_sample = _Col2AnyArgsFactory(name='array_sample')
 array_replace = _Col3AnyArgsFactory(name='array_replace')
+array_to_string = _Col3AnyArgsFactory(name='array_to_string')
