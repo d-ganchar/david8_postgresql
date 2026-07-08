@@ -1,9 +1,9 @@
 from david8.core.base_query_builder import BaseQueryBuilder as _BaseQueryBuilder
-from david8.protocols.sql import AliasedProtocol, ExprProtocol, FunctionProtocol
+from david8.protocols.sql import AliasedProtocol, ExprProtocol, FunctionProtocol, InsertProtocol
 
 from ..protocols.query_builder import QueryBuilderProtocol
 from ..protocols.sql import SelectProtocol, UpdateProtocol
-from .dml import Update
+from .dml import Insert, Update
 from .dql import Select
 
 
@@ -13,3 +13,6 @@ class QueryBuilder(_BaseQueryBuilder, QueryBuilderProtocol):
 
     def update(self) -> UpdateProtocol:
         return Update(dialect=self._dialect)
+
+    def insert(self) -> InsertProtocol:
+        return Insert(dialect=self._dialect)

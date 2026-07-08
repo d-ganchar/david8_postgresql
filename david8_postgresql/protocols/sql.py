@@ -1,3 +1,5 @@
+from david8.protocols.sql import ExprProtocol, PredicateProtocol
+from david8.protocols.sql import InsertProtocol as _InsertProtocol
 from david8.protocols.sql import SelectProtocol as _SelectProtocol
 from david8.protocols.sql import UpdateProtocol as _UpdateProtocol
 
@@ -58,8 +60,22 @@ class SelectProtocol(_SelectProtocol):
         """
 
 class UpdateProtocol(_UpdateProtocol):
-    def returning(self, *args: str) -> 'UpdateProtocol':
-        pass
+    def returning(self, *args: str) -> 'UpdateProtocol': ...
 
-    def from_table(self, table_name: str, alias: str = '', db_name: str = '') -> 'UpdateProtocol':
-        pass
+    def from_table(self, table_name: str, alias: str = '', db_name: str = '') -> 'UpdateProtocol': ...
+
+
+class DoProtocol(ExprProtocol): ...
+
+
+class InsertProtocol(_InsertProtocol):
+    def on_conflict(
+        self,
+        columns: list[str] | tuple[str, ...],
+        do: DoProtocol,
+        where: tuple[PredicateProtocol, ...] | list[PredicateProtocol] = None,
+    ) -> 'InsertProtocol': ...
+
+    def on_conflict_constraint(self, name: str, do: DoProtocol) -> 'InsertProtocol': ...
+
+    def returning(self, *args: str) -> 'InsertProtocol': ...
